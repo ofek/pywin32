@@ -536,10 +536,10 @@ static PyObject* PyList_FromDoubleTerminatedWSTR(LPWSTR strings)
 
 // Used internally to format event messages
 // Caller must free the returned value
-static PyObject FormatMessageInternal(EVT_HANDLE metadata, EVT_HANDLE event, DWORD flags, DWORD resourceId)
+static PyObject *FormatMessageInternal(EVT_HANDLE metadata, EVT_HANDLE event, DWORD flags, DWORD resourceId)
 {
 	LPWSTR buf = NULL;
-	PyObject ret = NULL;
+	PyObject *ret = NULL;
 	DWORD allocated_size = 0;
 	DWORD returned_size = 0;
 	DWORD status = 0;
@@ -616,9 +616,7 @@ static PyObject *PyEvtFormatMessage(PyObject *self, PyObject *args, PyObject *kw
 		&resourceId))  // @pyparm int|ResourceId|0|The resource identifier of a message string returned by <om win32evtlog.EvtGetPublisherMetadataProperty>.  Only set this if flags = EvtFormatMessageId.
 		return NULL;
 
-	PyObject *ret = FormatMessageInternal(metadata_handle, event_handle, flags, resourceId);
-
-	return ret;
+	return FormatMessageInternal(metadata_handle, event_handle, flags, resourceId);
 }
 PyCFunction pfnPyEvtFormatMessage = (PyCFunction) PyEvtFormatMessage;
 
