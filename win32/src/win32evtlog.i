@@ -539,7 +539,7 @@ static PyObject* PyList_FromDoubleTerminatedWSTR(LPWSTR strings)
 static PyObject FormatMessageInternal(EVT_HANDLE metadata, EVT_HANDLE event, DWORD flags, DWORD resourceId)
 {
 	LPWSTR buf = NULL;
-	PyObject *ret = NULL;
+	PyObject ret = NULL;
 	DWORD allocated_size = 0;
 	DWORD returned_size = 0;
 	DWORD status = 0;
@@ -613,7 +613,7 @@ static PyObject *PyEvtFormatMessage(PyObject *self, PyObject *args, PyObject *kw
 		PyWinObject_AsHANDLE, &metadata_handle,	// @pyparm <o PyEVT_HANDLE>|Metadata||Handle to provider metadata returned by <om win32evtlog.EvtOpenPublisherMetadata>
 		PyWinObject_AsHANDLE, &event_handle,	// @pyparm <o PyEVT_HANDLE>|Event||Handle to an event
 		&flags,	// @pyparm int|Flags||Type of message to format. EvtFormatMessageEvent or EvtFormatMessageLevel or EvtFormatMessageTask or EvtFormatMessageOpcode or EvtFormatMessageKeyword or EvtFormatMessageChannel or EvtFormatMessageProvider or EvtFormatMessageId or EvtFormatMessageXml.  If set to EvtFormatMessageId, callers should also set the 'ResourceId' parameter
-        &resourceId))  // @pyparm int|ResourceId|0|The resource identifier of a message string returned by <om win32evtlog.EvtGetPublisherMetadataProperty>.  Only set this if flags = EvtFormatMessageId.
+		&resourceId))  // @pyparm int|ResourceId|0|The resource identifier of a message string returned by <om win32evtlog.EvtGetPublisherMetadataProperty>.  Only set this if flags = EvtFormatMessageId.
 		return NULL;
 
 	PyObject *ret = FormatMessageInternal(metadata_handle, event_handle, flags, resourceId);
