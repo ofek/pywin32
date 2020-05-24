@@ -20,9 +20,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: ilammy/msvc-dev-cmd@v1
-      with:
-        sdk: '8.1'
+    - name: hmm
+      run: sdksetup.exe /features OptionId.WindowsDesktopSoftwareDevelopmentKit OptionId.NetFxSoftwareDevelopmentKit /quiet
+      shell: cmd
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
